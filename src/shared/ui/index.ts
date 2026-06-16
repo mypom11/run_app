@@ -1,8 +1,12 @@
+export { AnimatedBar } from './AnimatedBar';
 export { AppText } from './AppText';
 export { Badge } from './Badge';
 export { Button } from './Button';
+export { CountUp } from './CountUp';
 export { GlassCard } from './GlassCard';
 export { Pill } from './Pill';
+export { PressableScale } from './PressableScale';
+export { Reveal } from './Reveal';
 export { ScreenBackground } from './ScreenBackground';
 export { ScreenHeader } from './ScreenHeader';
 export { ScreenScroll } from './ScreenScroll';

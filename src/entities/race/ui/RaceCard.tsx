@@ -1,11 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { dDayLabel, formatKoreanDate } from '@/shared/lib';
 import { colors, radius, spacing } from '@/shared/theme';
-import { AppText } from '@/shared/ui';
+import { AppText, PressableScale } from '@/shared/ui';
 import { RACE_EVENT_LABEL, RaceEvent, type NormalizedRace } from '../model/types';
 
 interface RaceCardProps {
@@ -19,13 +19,10 @@ export function RaceCard({ race, onPress, width }: RaceCardProps) {
   const dday = dDayLabel(race.startDate);
 
   return (
-    <Pressable
+    <PressableScale
       onPress={() => onPress?.(race)}
-      style={({ pressed }) => [
-        styles.card,
-        width != null && { width },
-        pressed && styles.pressed,
-      ]}
+      scaleTo={0.97}
+      style={[styles.card, width != null && { width }]}
     >
       <View style={styles.imageWrap}>
         <Image
@@ -76,7 +73,7 @@ export function RaceCard({ race, onPress, width }: RaceCardProps) {
           ))}
         </View>
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -88,7 +85,6 @@ const styles = StyleSheet.create({
     borderColor: colors.glassBorder,
     overflow: 'hidden',
   },
-  pressed: { opacity: 0.9, transform: [{ scale: 0.99 }] },
   imageWrap: { height: 168, justifyContent: 'flex-end' },
   ddayBadge: {
     position: 'absolute',

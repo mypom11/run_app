@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NormalizedRace } from '@/entities/race';
 import { FLOATING_TAB_CLEARANCE } from '@/shared/config';
 import { spacing } from '@/shared/theme';
-import { ScreenBackground } from '@/shared/ui';
+import { Reveal, ScreenBackground } from '@/shared/ui';
 import { FeaturedRaces } from './FeaturedRaces';
 import { HomeHeader } from './HomeHeader';
 import { HomeHero } from './HomeHero';
@@ -31,11 +31,21 @@ export function HomeView() {
           },
         ]}
       >
-        <HomeHeader />
-        <HomeHero onPressCta={goRace} />
-        <ToolsBand onPressTool={(route) => router.push(route as never)} />
-        <FeaturedRaces onPressRace={goRace} onPressMore={goRace} />
-        <PaceCTA onPress={() => router.push('/activity?tab=pace')} />
+        <Reveal index={0}>
+          <HomeHeader />
+        </Reveal>
+        <Reveal index={1}>
+          <HomeHero onPressCta={goRace} />
+        </Reveal>
+        <Reveal index={2}>
+          <ToolsBand onPressTool={(route) => router.push(route as never)} />
+        </Reveal>
+        <Reveal index={3}>
+          <FeaturedRaces onPressRace={goRace} onPressMore={goRace} />
+        </Reveal>
+        <Reveal index={4}>
+          <PaceCTA onPress={() => router.push('/activity?tab=pace')} />
+        </Reveal>
       </ScrollView>
     </ScreenBackground>
   );

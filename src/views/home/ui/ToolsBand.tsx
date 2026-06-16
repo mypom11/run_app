@@ -1,9 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { ComponentProps } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { colors, radius, spacing } from '@/shared/theme';
-import { AppText, GlassCard } from '@/shared/ui';
+import { AppText, GlassCard, PressableScale } from '@/shared/ui';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
@@ -18,11 +18,7 @@ export function ToolsBand({ onPressTool }: { onPressTool?: (route: string) => vo
   return (
     <View style={styles.grid}>
       {TOOLS.map((t) => (
-        <Pressable
-          key={t.key}
-          onPress={() => onPressTool?.(t.route)}
-          style={({ pressed }) => [styles.cell, pressed && styles.pressed]}
-        >
+        <PressableScale key={t.key} onPress={() => onPressTool?.(t.route)} style={styles.cell}>
           <GlassCard style={styles.card}>
             <View style={styles.icon}>
               <Ionicons name={t.icon} size={20} color={colors.accentStrong} />
@@ -34,7 +30,7 @@ export function ToolsBand({ onPressTool }: { onPressTool?: (route: string) => vo
               {t.desc}
             </AppText>
           </GlassCard>
-        </Pressable>
+        </PressableScale>
       ))}
     </View>
   );
@@ -50,7 +46,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
   },
   cell: { width: '47.8%' },
-  pressed: { opacity: 0.85, transform: [{ scale: 0.98 }] },
   card: { padding: spacing.lg, gap: 4, minHeight: 120, justifyContent: 'center' },
   icon: {
     width: 42,

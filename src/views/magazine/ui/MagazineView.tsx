@@ -8,7 +8,7 @@ import {
   type ArticleCategory,
 } from '@/entities/article';
 import { spacing } from '@/shared/theme';
-import { ScreenHeader, ScreenScroll, Segmented, type SegmentOption } from '@/shared/ui';
+import { Reveal, ScreenHeader, ScreenScroll, Segmented, type SegmentOption } from '@/shared/ui';
 
 type Filter = 'all' | ArticleCategory;
 
@@ -32,15 +32,21 @@ export function MagazineView() {
 
   return (
     <ScreenScroll contentStyle={styles.content}>
-      <ScreenHeader
-        overline="MAGAZINE"
-        title="러너 매거진"
-        subtitle="더 잘 달리기 위한 가이드, 영양, 장비 그리고 사람들의 이야기."
-      />
-      <Segmented value={filter} options={FILTERS} onChange={setFilter} />
+      <Reveal index={0}>
+        <ScreenHeader
+          overline="MAGAZINE"
+          title="러너 매거진"
+          subtitle="더 잘 달리기 위한 가이드, 영양, 장비 그리고 사람들의 이야기."
+        />
+      </Reveal>
+      <Reveal index={1}>
+        <Segmented value={filter} options={FILTERS} onChange={setFilter} />
+      </Reveal>
       <View style={styles.list}>
-        {items.map((a) => (
-          <ArticleCard key={a.id} article={a} />
+        {items.map((a, i) => (
+          <Reveal key={a.id} index={i} delay={120} step={55}>
+            <ArticleCard article={a} />
+          </Reveal>
         ))}
       </View>
     </ScreenScroll>

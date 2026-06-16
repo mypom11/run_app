@@ -1,20 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { formatDateShort } from '@/shared/lib';
 import { colors, radius, spacing } from '@/shared/theme';
-import { AppText, Badge } from '@/shared/ui';
+import { AppText, Badge, PressableScale } from '@/shared/ui';
 import { priceLabel } from '../model/trips';
 import type { RunTrip } from '../model/types';
 
 export function RunTripCard({ trip, onPress }: { trip: RunTrip; onPress?: (trip: RunTrip) => void }) {
   return (
-    <Pressable
-      onPress={() => onPress?.(trip)}
-      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
-    >
+    <PressableScale onPress={() => onPress?.(trip)} scaleTo={0.97} style={styles.card}>
       <View style={styles.imageWrap}>
         <Image
           source={{ uri: trip.cover }}
@@ -80,7 +77,7 @@ export function RunTripCard({ trip, onPress }: { trip: RunTrip; onPress?: (trip:
           </View>
         </View>
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -92,7 +89,6 @@ const styles = StyleSheet.create({
     borderColor: colors.glassBorder,
     overflow: 'hidden',
   },
-  pressed: { opacity: 0.9 },
   imageWrap: { aspectRatio: 4 / 3, justifyContent: 'flex-end' },
   badges: {
     position: 'absolute',

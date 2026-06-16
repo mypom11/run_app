@@ -1,11 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { formatDateShort } from '@/shared/lib';
 import { colors, radius, spacing } from '@/shared/theme';
-import { AppText, Badge } from '@/shared/ui';
+import { AppText, Badge, PressableScale } from '@/shared/ui';
 import { ARTICLE_CATEGORY_LABEL, type Article } from '../model/types';
 
 interface ArticleCardProps {
@@ -18,10 +18,7 @@ export function ArticleCard({ article, variant = 'default', onPress }: ArticleCa
   const isLarge = variant === 'large';
 
   return (
-    <Pressable
-      onPress={() => onPress?.(article)}
-      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
-    >
+    <PressableScale onPress={() => onPress?.(article)} scaleTo={0.97} style={styles.card}>
       <View style={[styles.imageWrap, isLarge ? styles.imageLarge : styles.imageDefault]}>
         <Image
           source={{ uri: article.cover }}
@@ -64,7 +61,7 @@ export function ArticleCard({ article, variant = 'default', onPress }: ArticleCa
           </View>
         </View>
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -76,7 +73,6 @@ const styles = StyleSheet.create({
     borderColor: colors.glassBorder,
     overflow: 'hidden',
   },
-  pressed: { opacity: 0.9 },
   imageWrap: { width: '100%', justifyContent: 'flex-start' },
   imageDefault: { aspectRatio: 16 / 10 },
   imageLarge: { aspectRatio: 16 / 10 },
