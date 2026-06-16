@@ -1,1 +1,1 @@
-export { daysUntil, dDayLabel, formatKoreanDate } from './date';
+export { daysUntil, dDayLabel, formatDateShort, formatKoreanDate } from './date';

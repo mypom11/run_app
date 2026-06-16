@@ -7,6 +7,13 @@ export const RUNABLE_STORAGE_BASE = 'https://storage.runable.me';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
+/**
+ * Vertical space the floating glass tab bar occupies above the safe-area
+ * inset. Screens add this to their scroll content's bottom padding so the
+ * last item clears the capsule.
+ */
+export const FLOATING_TAB_CLEARANCE = 84;
+
 /** Bottom tab navigation — mirrors the web NAV_ITEMS. */
 export const TAB_ITEMS: {
   name: string;

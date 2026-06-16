@@ -1,7 +1,10 @@
 export { AppText } from './AppText';
+export { Badge } from './Badge';
 export { Button } from './Button';
 export { GlassCard } from './GlassCard';
 export { Pill } from './Pill';
-export { PlaceholderScreen } from './PlaceholderScreen';
 export { ScreenBackground } from './ScreenBackground';
+export { ScreenHeader } from './ScreenHeader';
+export { ScreenScroll } from './ScreenScroll';
 export { SectionHeader } from './SectionHeader';
+export { Segmented, type SegmentOption } from './Segmented';

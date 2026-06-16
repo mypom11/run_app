@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { NormalizedRace } from '@/entities/race';
+import { FLOATING_TAB_CLEARANCE } from '@/shared/config';
 import { spacing } from '@/shared/theme';
 import { ScreenBackground } from '@/shared/ui';
 import { FeaturedRaces } from './FeaturedRaces';
@@ -24,7 +25,10 @@ export function HomeView() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[
           styles.content,
-          { paddingTop: insets.top + spacing.sm, paddingBottom: insets.bottom + spacing['3xl'] },
+          {
+            paddingTop: insets.top + spacing.sm,
+            paddingBottom: insets.bottom + FLOATING_TAB_CLEARANCE + spacing.lg,
+          },
         ]}
       >
         <HomeHeader />
