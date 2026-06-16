@@ -35,7 +35,7 @@ export function HomeView() {
         <HomeHero onPressCta={goRace} />
         <ToolsBand onPressTool={(route) => router.push(route as never)} />
         <FeaturedRaces onPressRace={goRace} onPressMore={goRace} />
-        <PaceCTA onPress={() => router.push('/pace')} />
+        <PaceCTA onPress={() => router.push('/activity?tab=pace')} />
       </ScrollView>
     </ScreenBackground>
   );

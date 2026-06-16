@@ -8,7 +8,7 @@ import { AppText, GlassCard } from '@/shared/ui';
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
 const TOOLS: { key: string; title: string; desc: string; icon: IconName; route: string }[] = [
-  { key: 'pace', title: '페이스 계산기', desc: '완주 시간 예측', icon: 'stopwatch-outline', route: '/pace' },
+  { key: 'pace', title: '페이스 계산기', desc: '완주 시간 예측', icon: 'stopwatch-outline', route: '/activity?tab=pace' },
   { key: 'runtrip', title: '런트립', desc: '참가권 보장 패키지', icon: 'airplane-outline', route: '/runtrip' },
   { key: 'magazine', title: '매거진', desc: '트레이닝 인사이트', icon: 'book-outline', route: '/magazine' },
   { key: 'race', title: '대회 검색', desc: '월·종목·지역', icon: 'search-outline', route: '/race' },

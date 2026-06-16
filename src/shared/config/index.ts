@@ -26,5 +26,4 @@ export const TAB_ITEMS: {
   { name: 'race', label: '대회', icon: 'calendar-outline', iconActive: 'calendar' },
   { name: 'magazine', label: '매거진', icon: 'book-outline', iconActive: 'book' },
   { name: 'runtrip', label: '런트립', icon: 'airplane-outline', iconActive: 'airplane' },
-  { name: 'pace', label: '페이스', icon: 'stopwatch-outline', iconActive: 'stopwatch' },
 ];
