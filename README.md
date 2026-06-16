@@ -73,6 +73,58 @@ npm start          # Expo 개발 서버 (QR)
 | `npm run lint` | ESLint (eslint-config-expo) |
 | `npx tsc --noEmit` | 타입 체크 |
 
+## EAS 빌드 (개발 빌드)
+
+HealthKit·지도 같은 **네이티브 모듈은 Expo Go에서 동작하지 않습니다.** 실제 데이터/지도를 보려면
+[EAS Build](https://docs.expo.dev/build/introduction/)로 **개발 빌드**(dev client 포함)를 만들어야 합니다.
+빌드 프로파일은 [`eas.json`](./eas.json)에 정의돼 있습니다.
+
+| 프로파일 | 용도 |
+|---|---|
+| `development` | 개발 빌드 — dev client + 내부 배포 (실기기, HealthKit 실데이터 ✅) |
+| `development-simulator` | iOS 시뮬레이터용 개발 빌드 (지도 ✅, Health는 제한적) |
+| `preview` | 내부 테스트용 릴리스 빌드 (APK / ad-hoc) |
+| `production` | 스토어 제출용 빌드 (`version` 자동 증가) |
+
+### 사전 준비
+
+```bash
+npm i -g eas-cli      # EAS CLI 설치
+eas login             # Expo 계정 로그인 (없으면 expo.dev에서 가입)
+eas init              # 프로젝트 연결 → app.json의 extra.eas.projectId 자동 생성
+```
+
+> iOS 빌드에는 **Apple Developer 계정**이 필요합니다. 무료 계정으로도 `development` 빌드는 가능하나
+> 7일 후 만료됩니다(유료 계정은 1년). 자격 증명은 `eas build` 실행 시 대화형으로 설정됩니다.
+
+### 빌드 & 실행
+
+```bash
+# 실기기 개발 빌드 (HealthKit 실데이터까지 확인)
+eas build --profile development --platform ios
+
+# iOS 시뮬레이터 개발 빌드
+eas build --profile development-simulator --platform ios
+
+# Android 개발 빌드 (APK)
+eas build --profile development --platform android
+
+# 빌드 완료 후 앱 설치 → 개발 서버에 연결
+npx expo start --dev-client
+```
+
+빌드가 끝나면 EAS가 설치 링크(QR)를 주고, 기기에 설치한 dev client 앱을 위 개발 서버에 연결하면
+JS 번들이 실시간으로 로드됩니다. 코드만 바뀌는 경우 매번 재빌드 없이 `--dev-client`로 반복 개발할 수 있고,
+네이티브 의존성(`app.json` 플러그인·신규 네이티브 패키지)이 바뀔 때만 다시 빌드하면 됩니다.
+
+### 로컬 빌드 (선택)
+
+클라우드 대신 로컬에서 빌드하려면 (macOS + Xcode 전체 설치 필요):
+
+```bash
+eas build --profile development --platform ios --local
+```
+
 ## 마이그레이션 현황
 
 - [x] FSD 폴더 구조 + 디자인 토큰 포팅
