@@ -1,56 +1,77 @@
-# Welcome to your Expo app 👋
+# Runable (React Native)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> **달리자, 나답게.**
+> 러너를 위한 올인원 플랫폼 — [Runable 웹](https://runable.me/) 프로젝트의 React Native(Expo) 포팅.
 
-## Get started
+웹(Next.js) 버전을 Expo 기반 네이티브 앱으로 옮기는 프로젝트입니다. 아키텍처는 웹과 동일하게
+**Feature-Sliced Design (FSD)** 을 따르며, 메인 화면은 모바일 앱에 맞춰 Nike Run Club 톤
+(다크 + 러닝 오렌지 + 글래스모피즘)으로 리뉴얼했습니다.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 기술 스택
 
-2. Start the app
+- **Expo SDK 56** / React Native 0.85 / React 19
+- **expo-router** — 파일 기반 라우팅 + typed routes
+- **expo-image / expo-linear-gradient / expo-blur** — 이미지·그라데이션·글래스
+- **@expo/vector-icons** (Ionicons)
+- TypeScript (strict)
 
-   ```bash
-   npx expo start
-   ```
+## 아키텍처 (FSD)
 
-In the output, you'll find options to open the app in a
+Feature-Sliced Design 6 레이어. 의존성은 단방향이며, 슬라이스 외부는 항상 `index.ts` public API로 진입합니다.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+shared ← entities ← features ← widgets ← views ← app
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+| 레이어 | 위치 | 역할 |
+|---|---|---|
+| `app` (expo-router) | `src/app/` | 라우트/네비게이션만. `(tabs)` 그룹에 하단 탭 |
+| `views` | `src/views/` | 화면(=FSD pages, expo-router 충돌 회피로 rename) |
+| `widgets` | `src/widgets/` | 큰 조합 블록 |
+| `features` | `src/features/` | 사용자 행위 단위 |
+| `entities` | `src/entities/` | 도메인 모델 (`race` — model·api·ui) |
+| `shared` | `src/shared/` | 도메인 무관 (`theme/`, `ui/`, `lib/`, `config/`) |
 
-### Other setup steps
+### 디자인 시스템
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+`src/shared/theme/tokens.ts` 가 단일 진실(SSOT). 웹의 CSS 커스텀 프로퍼티를 TS 토큰으로 포팅:
+다크 서피스, 러닝 오렌지 액센트(`#ff5a1f`), 글래스 표면, radius/spacing/typography 스케일.
 
-## Learn more
+UI 프리미티브: `AppText`, `Button`, `GlassCard`, `Pill`, `SectionHeader`, `ScreenBackground`.
 
-To learn more about developing your project with Expo, look at the following resources:
+### 메인 화면
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+`src/views/home/` — 헤더(인사 + 아바타) · 히어로 카드 · 퀵툴 그리드(페이스/런트립/매거진/검색) ·
+다가오는 대회 가로 캐러셀(`entities/race` 의 `RaceCard`) · 페이스 계산기 프로모 배너.
+대회 데이터는 runable.me 공개 API에서 가져오며, 실패 시 mock 데이터로 폴백합니다.
 
-## Join the community
+## 시작하기
 
-Join our community of developers creating universal apps.
+```bash
+nvm use            # .nvmrc → Node 22
+npm install
+npm run ios        # iOS 시뮬레이터
+npm run android    # Android 에뮬레이터
+npm run web        # 웹
+npm start          # Expo 개발 서버 (QR)
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 스크립트
+
+| 명령 | 설명 |
+|---|---|
+| `npm start` | Expo 개발 서버 |
+| `npm run ios` / `android` / `web` | 플랫폼별 실행 |
+| `npm run lint` | ESLint (eslint-config-expo) |
+| `npx tsc --noEmit` | 타입 체크 |
+
+## 마이그레이션 현황
+
+- [x] FSD 폴더 구조 + 디자인 토큰 포팅
+- [x] 하단 탭 네비게이션 (홈·대회·매거진·런트립·페이스)
+- [x] **메인 화면** (Nike Run 스타일 리뉴얼)
+- [ ] 대회 캘린더 (달력/목록/지도)
+- [ ] 매거진 · 런트립 · 페이스 계산기
+- [ ] 예약 플로우 · 대기실 게이트
