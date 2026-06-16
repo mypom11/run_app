@@ -22,6 +22,7 @@ export const TAB_ITEMS: {
   iconActive: IconName;
 }[] = [
   { name: 'index', label: '홈', icon: 'home-outline', iconActive: 'home' },
+  { name: 'activity', label: '기록', icon: 'fitness-outline', iconActive: 'fitness' },
   { name: 'race', label: '대회', icon: 'calendar-outline', iconActive: 'calendar' },
   { name: 'magazine', label: '매거진', icon: 'book-outline', iconActive: 'book' },
   { name: 'runtrip', label: '런트립', icon: 'airplane-outline', iconActive: 'airplane' },

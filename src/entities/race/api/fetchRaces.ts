@@ -23,6 +23,10 @@ interface RawRace {
   homepage?: string;
   events?: unknown;
   eventNames?: unknown;
+  lat?: number;
+  lng?: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface RaceFilters extends RaceQueryRange {
@@ -40,6 +44,8 @@ function normalize(raw: RawRace, i: number): NormalizedRace {
     : Array.isArray(raw.eventNames)
       ? (raw.eventNames as unknown[]).filter((e): e is string => typeof e === 'string')
       : [];
+  const lat = raw.lat ?? raw.latitude;
+  const lng = raw.lng ?? raw.longitude;
   return {
     id: String(raw.id ?? raw.compId ?? raw.uuid ?? `race-${i}`),
     title: pickStr(raw.title, raw.name, raw.compName) ?? '이름 없는 대회',
@@ -49,6 +55,7 @@ function normalize(raw: RawRace, i: number): NormalizedRace {
     events,
     thumbnail: pickStr(raw.thumbnail, raw.imageUrl, raw.posterUrl),
     officialUrl: pickStr(raw.officialUrl, raw.homepage),
+    ...(typeof lat === 'number' && typeof lng === 'number' ? { lat, lng } : {}),
   };
 }
 

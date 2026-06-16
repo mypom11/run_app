@@ -11,6 +11,9 @@ export interface NormalizedRace {
   events: string[];
   thumbnail: string | null;
   officialUrl: string | null;
+  /** Optional venue coordinates for the map view. */
+  lat?: number;
+  lng?: number;
 }
 
 export const RACE_EVENTS = ['full', 'half', '10k', '5k'] as const;

@@ -17,6 +17,8 @@ export const MOCK_RACES: NormalizedRace[] = [
     events: ['full', 'half', '10k'],
     thumbnail: 'https://picsum.photos/seed/runable-seoul/1200/900',
     officialUrl: null,
+    lat: 37.5759,
+    lng: 126.9769,
   },
   {
     id: 'hangang-night-5k',
@@ -27,6 +29,8 @@ export const MOCK_RACES: NormalizedRace[] = [
     events: ['5k', '10k'],
     thumbnail: 'https://picsum.photos/seed/runable-hangang/1200/900',
     officialUrl: null,
+    lat: 37.5305,
+    lng: 127.0668,
   },
   {
     id: 'jeju-island-half',
@@ -37,6 +41,8 @@ export const MOCK_RACES: NormalizedRace[] = [
     events: ['half', '10k', '5k'],
     thumbnail: 'https://picsum.photos/seed/runable-jeju/1200/900',
     officialUrl: null,
+    lat: 33.5436,
+    lng: 126.6699,
   },
   {
     id: 'busan-bridge-run',
@@ -47,6 +53,8 @@ export const MOCK_RACES: NormalizedRace[] = [
     events: ['full', 'half'],
     thumbnail: 'https://picsum.photos/seed/runable-busan/1200/900',
     officialUrl: null,
+    lat: 35.1532,
+    lng: 129.1186,
   },
   {
     id: 'chuncheon-lake-marathon',
@@ -57,6 +65,8 @@ export const MOCK_RACES: NormalizedRace[] = [
     events: ['full', '10k'],
     thumbnail: 'https://picsum.photos/seed/runable-chuncheon/1200/900',
     officialUrl: null,
+    lat: 37.8602,
+    lng: 127.6987,
   },
   {
     id: 'incheon-sky-10k',
@@ -67,5 +77,7 @@ export const MOCK_RACES: NormalizedRace[] = [
     events: ['10k', '5k'],
     thumbnail: 'https://picsum.photos/seed/runable-incheon/1200/900',
     officialUrl: null,
+    lat: 37.3897,
+    lng: 126.642,
   },
 ];

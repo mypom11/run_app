@@ -2,14 +2,23 @@ import { useMemo, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import { RaceCard } from '@/entities/race';
+import { RaceMap } from '@/features/race-map';
 import { EMPTY_FILTERS, filterRaces, RaceSearchBar, type RaceFilterState } from '@/features/race-search';
 import { colors, spacing } from '@/shared/theme';
-import { AppText, ScreenHeader, ScreenScroll } from '@/shared/ui';
+import { AppText, ScreenHeader, ScreenScroll, Segmented, type SegmentOption } from '@/shared/ui';
 import { useRaceList } from '../model/useRaceList';
+
+type ViewMode = 'list' | 'map';
+
+const VIEW_OPTIONS: SegmentOption<ViewMode>[] = [
+  { value: 'list', label: '목록' },
+  { value: 'map', label: '지도' },
+];
 
 export function RaceView() {
   const { races, loading } = useRaceList();
   const [filters, setFilters] = useState<RaceFilterState>(EMPTY_FILTERS);
+  const [mode, setMode] = useState<ViewMode>('list');
 
   const items = useMemo(() => filterRaces(races, filters), [races, filters]);
 
@@ -21,11 +30,14 @@ export function RaceView() {
         subtitle="국내·해외 마라톤 일정을 한눈에. 검색과 종목 필터로 빠르게 탐색하세요."
       />
       <RaceSearchBar value={filters} onChange={setFilters} />
+      <Segmented value={mode} options={VIEW_OPTIONS} onChange={setMode} />
 
       {loading ? (
         <View style={styles.center}>
           <ActivityIndicator color={colors.accent} />
         </View>
+      ) : mode === 'map' ? (
+        <RaceMap races={items} />
       ) : items.length === 0 ? (
         <View style={styles.center}>
           <AppText variant="title" tone="muted">

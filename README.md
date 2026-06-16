@@ -14,8 +14,14 @@
 - **Expo SDK 56** / React Native 0.85 / React 19
 - **expo-router** — 파일 기반 라우팅 + typed routes
 - **expo-image / expo-linear-gradient / expo-blur** — 이미지·그라데이션·글래스
+- **react-native-maps** — 대회 지도 (네이티브)
+- **@kingstinct/react-native-healthkit** — Apple 건강 연동 (iOS)
 - **@expo/vector-icons** (Ionicons)
 - TypeScript (strict)
+
+> **Apple HealthKit / 네이티브 지도는 개발 빌드 필요**: HealthKit·지도는 네이티브 모듈이라
+> Expo Go·웹에서는 동작하지 않습니다. `eas build --profile development` 또는 Xcode 개발 빌드에서
+> 실제 데이터/지도가 표시되고, 그 외 환경에서는 데모 데이터 및 안내 화면으로 폴백합니다.
 
 ## 아키텍처 (FSD)
 
@@ -70,12 +76,13 @@ npm start          # Expo 개발 서버 (QR)
 ## 마이그레이션 현황
 
 - [x] FSD 폴더 구조 + 디자인 토큰 포팅
-- [x] 글래스모피즘 플로팅 하단 네비 (홈·대회·매거진·런트립·페이스)
+- [x] 글래스모피즘 플로팅 하단 네비 (홈·기록·대회·매거진·런트립·페이스)
 - [x] **메인 화면** (Nike Run 스타일 리뉴얼)
-- [x] 대회 일정 — 검색 + 지역/종목 필터 + 목록
+- [x] 대회 일정 — 검색 + 지역/종목 필터 + **목록/지도 토글 (네이티브 지도)**
 - [x] 매거진 — 카테고리 필터 + 아티클 목록
 - [x] 런트립 — 해외 마라톤 패키지 목록
 - [x] 페이스 계산기 — 거리·페이스 → 완주 시간, 트레드밀 변환
-- [ ] 대회 달력/지도 뷰 (Leaflet → 네이티브 지도)
+- [x] **내 기록 — Apple HealthKit 연동 (실데이터 + 데모 폴백)**
+- [ ] 대회 달력 그리드 뷰
 - [ ] 예약 플로우 · 대기실 게이트
 - [ ] 상세 화면 (대회·아티클·런트립 detail)
