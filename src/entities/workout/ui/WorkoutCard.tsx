@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { formatDuration, formatPace, relativeDay } from '@/shared/lib';
@@ -7,7 +8,7 @@ import { AppText, GlassCard } from '@/shared/ui';
 import type { Workout } from '../model/types';
 
 /** A single run: big distance, with pace / time / heart-rate metrics. */
-export function WorkoutCard({ workout }: { workout: Workout }) {
+export const WorkoutCard = memo(function WorkoutCard({ workout }: { workout: Workout }) {
   return (
     <GlassCard style={styles.card}>
       <View style={styles.head}>
@@ -38,7 +39,7 @@ export function WorkoutCard({ workout }: { workout: Workout }) {
       </View>
     </GlassCard>
   );
-}
+});
 
 function Metric({
   icon,

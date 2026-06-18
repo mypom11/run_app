@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import type { Workout } from '@/entities/workout';
@@ -9,7 +10,7 @@ import { activityStats } from '../model/stats';
 
 /** Four headline lifetime metrics with values that tick up on mount. */
 export function StatsGrid({ workouts }: { workouts: Workout[] }) {
-  const s = activityStats(workouts);
+  const s = useMemo(() => activityStats(workouts), [workouts]);
 
   return (
     <View style={styles.grid}>

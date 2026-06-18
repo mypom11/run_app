@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
+import { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { formatDateShort } from '@/shared/lib';
@@ -14,7 +15,7 @@ interface ArticleCardProps {
   onPress?: (article: Article) => void;
 }
 
-export function ArticleCard({ article, variant = 'default', onPress }: ArticleCardProps) {
+export const ArticleCard = memo(function ArticleCard({ article, variant = 'default', onPress }: ArticleCardProps) {
   const isLarge = variant === 'large';
 
   return (
@@ -63,7 +64,7 @@ export function ArticleCard({ article, variant = 'default', onPress }: ArticleCa
       </View>
     </PressableScale>
   );
-}
+});
 
 const styles = StyleSheet.create({
   card: {

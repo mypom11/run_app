@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
+import { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { dDayLabel, formatKoreanDate } from '@/shared/lib';
@@ -15,7 +16,7 @@ interface RaceCardProps {
   width?: number;
 }
 
-export function RaceCard({ race, onPress, width }: RaceCardProps) {
+export const RaceCard = memo(function RaceCard({ race, onPress, width }: RaceCardProps) {
   const dday = dDayLabel(race.startDate);
 
   return (
@@ -75,7 +76,7 @@ export function RaceCard({ race, onPress, width }: RaceCardProps) {
       </View>
     </PressableScale>
   );
-}
+});
 
 const styles = StyleSheet.create({
   card: {

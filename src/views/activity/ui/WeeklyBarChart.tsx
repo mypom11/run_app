@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import type { Workout } from '@/entities/workout';
@@ -9,10 +10,15 @@ const CHART_HEIGHT = 132;
 
 /** 7-day distance as a column chart — bars grow up on mount, today accented. */
 export function WeeklyBarChart({ workouts }: { workouts: Workout[] }) {
-  const days = dailyDistance(workouts, 7);
-  const max = Math.max(1, ...days.map((d) => d.distanceKm));
-  const total = days.reduce((s, d) => s + d.distanceKm, 0);
-  const activeDays = days.filter((d) => d.distanceKm > 0).length;
+  const { days, max, total, activeDays } = useMemo(() => {
+    const buckets = dailyDistance(workouts, 7);
+    return {
+      days: buckets,
+      max: Math.max(1, ...buckets.map((d) => d.distanceKm)),
+      total: buckets.reduce((s, d) => s + d.distanceKm, 0),
+      activeDays: buckets.filter((d) => d.distanceKm > 0).length,
+    };
+  }, [workouts]);
 
   return (
     <GlassCard style={styles.card}>

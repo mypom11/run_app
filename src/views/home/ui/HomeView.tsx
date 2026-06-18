@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { useCallback } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -17,7 +18,9 @@ export function HomeView() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
-  const goRace = (_race?: NormalizedRace) => router.push('/race');
+  const goRace = useCallback((_race?: NormalizedRace) => router.push('/race'), [router]);
+  const goTool = useCallback((route: string) => router.push(route as never), [router]);
+  const goPace = useCallback(() => router.push('/activity?tab=pace'), [router]);
 
   return (
     <ScreenBackground>
@@ -38,13 +41,13 @@ export function HomeView() {
           <HomeHero onPressCta={goRace} />
         </Reveal>
         <Reveal index={2}>
-          <ToolsBand onPressTool={(route) => router.push(route as never)} />
+          <ToolsBand onPressTool={goTool} />
         </Reveal>
         <Reveal index={3}>
           <FeaturedRaces onPressRace={goRace} onPressMore={goRace} />
         </Reveal>
         <Reveal index={4}>
-          <PaceCTA onPress={() => router.push('/activity?tab=pace')} />
+          <PaceCTA onPress={goPace} />
         </Reveal>
       </ScrollView>
     </ScreenBackground>

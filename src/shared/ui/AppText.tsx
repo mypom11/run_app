@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Text, TextProps, TextStyle } from 'react-native';
 
 import { colors, typography } from '@/shared/theme';
@@ -22,7 +23,7 @@ interface AppTextProps extends TextProps {
  * Themed text primitive. `variant` picks a slot from the type scale,
  * `tone` picks a color. Defaults to body/default.
  */
-export function AppText({
+export const AppText = memo(function AppText({
   variant = 'body',
   tone = 'default',
   style,
@@ -30,4 +31,4 @@ export function AppText({
 }: AppTextProps) {
   const base = typography[variant] as TextStyle;
   return <Text style={[base, { color: TONE_COLOR[tone] }, style]} {...rest} />;
-}
+});

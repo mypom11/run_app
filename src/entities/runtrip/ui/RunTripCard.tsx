@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
+import { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { formatDateShort } from '@/shared/lib';
@@ -9,7 +10,7 @@ import { AppText, Badge, PressableScale } from '@/shared/ui';
 import { priceLabel } from '../model/trips';
 import type { RunTrip } from '../model/types';
 
-export function RunTripCard({ trip, onPress }: { trip: RunTrip; onPress?: (trip: RunTrip) => void }) {
+export const RunTripCard = memo(function RunTripCard({ trip, onPress }: { trip: RunTrip; onPress?: (trip: RunTrip) => void }) {
   return (
     <PressableScale onPress={() => onPress?.(trip)} scaleTo={0.97} style={styles.card}>
       <View style={styles.imageWrap}>
@@ -79,7 +80,7 @@ export function RunTripCard({ trip, onPress }: { trip: RunTrip; onPress?: (trip:
       </View>
     </PressableScale>
   );
-}
+});
 
 const styles = StyleSheet.create({
   card: {

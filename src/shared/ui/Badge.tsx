@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { colors, radius } from '@/shared/theme';
@@ -6,7 +7,7 @@ import { AppText } from './AppText';
 type Tone = 'glass' | 'accent';
 
 /** Small label chip overlaid on imagery (event/category badges). */
-export function Badge({
+export const Badge = memo(function Badge({
   label,
   tone = 'glass',
   style,
@@ -23,7 +24,7 @@ export function Badge({
       </AppText>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   base: {

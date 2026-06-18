@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import type { Workout } from '@/entities/workout';
@@ -14,14 +15,21 @@ const CHART_HEIGHT = 96;
  * inverted), and the personal best in the window is accented.
  */
 export function PaceTrendChart({ workouts }: { workouts: Workout[] }) {
-  const points = recentPaces(workouts, 8);
-  if (points.length === 0) return null;
+  const { points, min, max, span, avg } = useMemo(() => {
+    const pts = recentPaces(workouts, 8);
+    const paces = pts.map((p) => p.paceSec);
+    const lo = Math.min(...paces);
+    const hi = Math.max(...paces);
+    return {
+      points: pts,
+      min: lo,
+      max: hi,
+      span: Math.max(1, hi - lo),
+      avg: paces.reduce((s, p) => s + p, 0) / paces.length,
+    };
+  }, [workouts]);
 
-  const paces = points.map((p) => p.paceSec);
-  const min = Math.min(...paces);
-  const max = Math.max(...paces);
-  const span = Math.max(1, max - min);
-  const avg = paces.reduce((s, p) => s + p, 0) / paces.length;
+  if (points.length === 0) return null;
 
   return (
     <GlassCard style={styles.card}>

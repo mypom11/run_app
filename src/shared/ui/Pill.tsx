@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { colors, radius, spacing } from '@/shared/theme';
@@ -12,7 +12,7 @@ interface PillProps {
 }
 
 /** Small rounded label chip (e.g. "SEASON 2026", event tags). */
-export function Pill({ label, icon, tone = 'glass', style }: PillProps) {
+export const Pill = memo(function Pill({ label, icon, tone = 'glass', style }: PillProps) {
   const isAccent = tone === 'accent';
   return (
     <View
@@ -32,7 +32,7 @@ export function Pill({ label, icon, tone = 'glass', style }: PillProps) {
       </AppText>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   base: {

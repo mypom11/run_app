@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { summarize, withinDays, type Workout } from '@/entities/workout';
@@ -10,8 +11,10 @@ const WEEKLY_GOAL_KM = 30;
 
 /** Weekly distance goal ring + streak + week-over-week momentum. */
 export function GoalProgressCard({ workouts }: { workouts: Workout[] }) {
-  const week = summarize(withinDays(workouts, 7));
-  const stats = activityStats(workouts);
+  const { week, stats } = useMemo(
+    () => ({ week: summarize(withinDays(workouts, 7)), stats: activityStats(workouts) }),
+    [workouts],
+  );
   const pct = Math.min(100, Math.round((week.totalDistanceKm / WEEKLY_GOAL_KM) * 100));
   const up = stats.weekDeltaKm >= 0;
 
